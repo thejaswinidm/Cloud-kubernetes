@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-server-conf
+  labels:
+    prometheus: prometheus
+    role: alert-rules
+data:
+  alert.rules: |-
+    - record: job:probe_http_duration_seconds:mean5m
+      expr: avg_over_time(probe_http_duration_seconds{job="myjob"}[5m])

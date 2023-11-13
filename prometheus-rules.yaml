@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: prometheus
+  name: example-rule
+spec:
+  groups:
+  - name: example
+    rules:
+    - alert: FailingProbe
+      expr: up == 0
+      for: 1m
+      annotations:
+        summary: "Failing Probe Detected"
+        description: "The probe has been failing for more than 1 minute."

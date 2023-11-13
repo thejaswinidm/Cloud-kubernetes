@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    build: .
+    command: python -u app.py
+    networks:
+      - mynetwork
+    ports:
+      - "80:80"
+    environment:
+      MONGO_HOST: mongo  # Use the service name as the hostname
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - mynetwork
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mongodb-data:
+networks:
+  mynetwork:
